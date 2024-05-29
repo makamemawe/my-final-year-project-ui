@@ -1,0 +1,11 @@
+.space-buttons {
+  flex: 1 1 auto;
+}
+
+mat-toolbar{
+background-color: #003973;
+}
+
+span{
+color: rgb(205, 229, 250);
+}
