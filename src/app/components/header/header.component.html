@@ -2,8 +2,70 @@
   <span>Kizimbani WebApp</span>
 
   <span class="space-buttons"></span>
+  <!-- <button mat-raised-button routerLink="/register" routerLinkActivate="active" color="primary">Register</button>
+  <button mat-raised-button routerLink="/login" routerLinkActivate="active" color="primary">
+  Login
+</button> -->
+
+<ng-container *ngIf="role">
+
+<div *ngIf="role === 'ADMIN'">
+  <button mat-raised-button routerLink="/dashboard" routerLinkActive="active" color="primary">
+    Dashboard
+  </button>
+  <button mat-raised-button routerLink="/post-category" routerLinkActive="active" color="primary">
+    PostCategory
+  </button>
+  <button mat-raised-button routerLink="/product" routerLinkActivate="active" color="primary">
+  Product
+</button>
+<button mat-raised-button  (click)="clearToken()" color="accent">
+  Logout
+</button>
+</div>
+
+<div *ngIf="role === 'USER'">
   <button mat-raised-button routerLink="/register" routerLinkActivate="active" color="primary">Register</button>
   <button mat-raised-button routerLink="/login" routerLinkActivate="active" color="primary">
   Login
 </button>
-</mat-toolbar>
+
+</div>
+</ng-container>
+
+<!-- <ng-container>
+  @if ("role === 'ADMIN'") {
+    <button mat-raised-button routerLink="/dashboard" routerLinkActivate="active" color="primary">
+      Dashboard
+    </button>
+    <button mat-raised-button routerLink="/product" routerLinkActivate="active" color="primary">
+      Product
+    </button>
+    <button mat-raised-button routerLink="/post-category" routerLinkActivate="active" color="primary">
+      PostCategory
+    </button>
+  }else{
+    <button mat-raised-button routerLink="/dashboard" routerLinkActivate="active" color="primary">
+      Dashboard
+    </button>
+    <button mat-raised-button  (click)="clearToken()" color="accent">
+      Logout
+    </button>
+  }
+</ng-container>
+</mat-toolbar> -->
+
+
+<!-- <mat-toolbar color="primary">
+  <span>
+    Kizimbani WebApp
+  </span>
+
+  <span class="space-buttons"></span>
+  <button *ngIf="! isLoggedIn()" routerLink="/login" mat-raised-button color="primary">
+    Login
+  </button>
+  <button *ngIf="isLoggedIn()" (click)="logout()" mat-raised-button color="warn">
+    Logout
+  </button>
+</mat-toolbar>-->

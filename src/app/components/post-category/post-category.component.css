@@ -2,8 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding: 10px;
+  height: 80vh;
 }
 
 mat-card{
@@ -21,7 +20,7 @@ mat-card-title{
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
-  color: #8b8f90;
+  color: #6e6c6c;
 }
 
 form{
@@ -33,6 +32,8 @@ form{
 mat-form-field{
   width: 100%;
   margin-bottom: 8px;
+  background-color: #fff;
+
 }
 
 button{
