@@ -1,130 +1,112 @@
- .container {
-  min-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+mat-grid-tile {
+  border: 1px solid #eee;
 }
 
-mat-form-field{
-  width: 30%;
-  margin-bottom: 8px;
-  background-color: #fff;
-
+.btn-remove-image {
+  position: absolute;
+  cursor: pointer;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: auto;
+  text-align: center;
 }
 
-input, textarea{
-  padding: 15px;
-  border-radius: 5px;
+.dropzone {
+  height: 150px;
+  min-width: 100px;
+  display: table;
+  background-color: #eee;
+  width: 300px;
+  border: dashed 1px #aaa;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.centered {
+  text-align: center;
+}
+
+.browse-button {
+  color: blue;
+  cursor: pointer;
+}
+.mt-5 {
+  margin-top: 2rem;
+}
+
+/* Grid layout for the gallery */
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+/* Container for each image to maintain aspect ratio */
+.image-container {
+  position: relative;
   width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Rounded corners */
 }
 
+/* Style for the remove button */
+.btn-remove-image {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  color: red;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
 
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #3f51b5;
-  }
+/* Hover effect for remove button */
+.btn-remove-image:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+/* Image styling to cover the container */
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+/* file-drop.component.css */
+.file-drop-zone {
+  width: 100%;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-    .file-upload-container {
-      display: flex;
-      margin-bottom: 20px;
-      flex-direction: column;
-      align-items: center;
-    }
-
-
-      .file-upload-label {
-        display: flex;
-        align-items: center;
-        padding: 12px 24px;
-        justify-content: center;
-        background-color: #3f51b5;
-        color: white;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-      }
-
-
-        span {
-          margin-right: 5px;
-        }
-
-        mat-icon {
-          font-style: 8px;
-        }
-
-    .image-preview {
-      display: flex;
-      justify-content: center;
-      margin-top: 16px;
-    }
-
-      .circle-image {
-        width: 150px;
-      }
-
-    button {
-      align-self: center;
-      margin-bottom: 16px;
-    }
-
-
-  @media (max-width: 600px) {
-    .container {
-      padding: 10px;
-
-      form {
-        mat-form-field {
-          margin-bottom: 10px;
-        }
-      }
-
-    }
-  }
-
-  .file-upload-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-  }
-
-  .file-upload-label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    background-color: #3f51b5;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-
-  .file-upload-label mat-icon {
-    margin-left: 10px;
-  }
-
-  .image-preview {
-    margin-top: 20px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-  }
-
-  .image-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
+.file-drop-zone p {
+  margin: 0;
+  color: #666;
+}

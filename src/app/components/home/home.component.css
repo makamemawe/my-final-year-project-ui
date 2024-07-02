@@ -1,0 +1,86 @@
+/* Main container for the home page image section */
+.home-page-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card{
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.home-page-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-page-image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.home-page-image .product-name p {
+  font-size: 18px;
+  text-align: center;
+  color: #333;
+  margin-top: 10px;
+}
+
+.home-page-image .product-description p {
+  font-size: 14px;
+  text-align: center;
+  color: #666;
+  margin: 10px 0;
+}
+
+.home-page-image .product-price {
+  font-size: 16px;
+  text-align: center;
+  color: #000;
+}
+
+.home-page-image .actual-price {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.mat-grid-tile {
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mat-grid-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.mat-grid-list {
+  margin-bottom: 50px;
+}
+
+/* Button styling */
+button[mat-raised-button] {
+  background-color: #d9534f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}

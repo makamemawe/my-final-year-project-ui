@@ -11,7 +11,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponent {
 
-
   registerForm!: FormGroup;
   hidePassword: Boolean = true;
   constructor(
@@ -33,17 +32,41 @@ export class RegisterComponent {
      this.hidePassword = !this.hidePassword;
   }
 
-   onSubmit(){
+  onSubmit() {
     const password = this.registerForm.get('password')?.value;
     const confirmPassword = this.registerForm.get('confirmPassword')?.value;
+
     if (password !== confirmPassword) {
-         this.snackBar.open('password do not match!', 'close', {duration: 5000, panelClass: 'error-snackBar'});
-         return;
+      this.snackBar.open('Passwords do not match!', 'Close', { duration: 5000, panelClass: 'error-snackBar' });
+      return;
+    }
+
+    this.authService.register(this.registerForm.value).subscribe(
+      (res: any) => {
+        this.snackBar.open('Register successful!', 'Close', { duration: 5000 });
+        this.router.navigate(['login']);
+      },
+      (error) => {
+        if (error.status === 409) { // Assuming 409 Conflict status for user already exists
+          this.snackBar.open('User already exists!', 'Close', { duration: 5000, panelClass: 'error-snackBar' });
+        } else {
+          this.snackBar.open('Registration failed!', 'Close', { duration: 5000, panelClass: 'error-snackBar' });
+        }
       }
-    this.authService.register(this.registerForm.value).subscribe((res: any)=>{
-      this.snackBar.open('register successful!', 'close', {duration: 5000});
-      this.router.navigate(['login']);
-    })
+    );
   }
+
+  //  onSubmit(){
+  //   const password = this.registerForm.get('password')?.value;
+  //   const confirmPassword = this.registerForm.get('confirmPassword')?.value;
+  //   if (password !== confirmPassword) {
+  //        this.snackBar.open('password do not match!', 'close', {duration: 5000, panelClass: 'error-snackBar'});
+  //        return;
+  //     }
+  //   this.authService.register(this.registerForm.value).subscribe((res: any)=>{
+  //     this.snackBar.open('register successful!', 'close', {duration: 5000});
+  //     this.router.navigate(['login']);
+  //   })
+  // }
 
 }

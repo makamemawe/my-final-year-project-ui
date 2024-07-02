@@ -47,13 +47,13 @@ export class LoginComponent {
           this.store.setRoles(tokenPayload.role);
           if(tokenPayload.role=="ADMIN"){
             this.snackBar.open('Login successful', 'ok', {duration: 5000});
-            this.router.navigate(['post-category'])
+            this.router.navigate(['product-details'])
           }
           else{ (tokenPayload.role=="USER")
-            this.router.navigate(['product'])
+            this.router.navigate(['/'])
         }
 
-        }
+       }
 
     },
       (err: any)=>{

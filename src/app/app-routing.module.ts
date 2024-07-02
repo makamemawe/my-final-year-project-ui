@@ -1,25 +1,55 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { authGuard } from './auth.guard';
+import { BuyProductComponent } from './components/buy-product/buy-product.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { PostCategoryComponent } from './components/post-category/post-category.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ProductViewComponent } from './components/product-view/product-view.component';
 import { ProductComponent } from './components/product/product.component';
 import { RegisterComponent } from './components/register/register.component';
-import { authGuard } from './guards/auth.guard';
+import { BuyProductResolverService } from './services/buy-product-resolver.service';
+import { ProductResolveService } from './services/product-resolve.service';
 
 const routes: Routes = [
-
-
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  { path: 'register', title: 'Signup', component: RegisterComponent},
-  { path: 'login', title: 'Login', component: LoginComponent},
-  { path: 'product', title: 'Product page', component: ProductComponent,canActivate:[authGuard]},
-  { path: 'dashboard', title: 'Dashboard page', component: DashboardComponent},
-  { path: 'post-category', title: 'Category Post', component: PostCategoryComponent,canActivate:[authGuard]},
- ];
+  { path: '', component: HomeComponent },
+  { path: 'login', title: 'Login', component: LoginComponent },
+  { path: 'register', title: 'Register', component: RegisterComponent },
+  {
+    path: 'product',
+    component: ProductComponent,
+    canActivate: [authGuard],
+    data: { role: ['ADMIN'] },
+    resolve: {
+      product: ProductResolveService,
+    },
+  },
+  {
+    path: 'product-details',
+    component: ProductDetailsComponent,
+    canActivate: [authGuard],
+    data: { role: ['ADMIN'] },
+  },
+  {
+    path: 'product-view',
+    component: ProductViewComponent,
+    resolve: {
+      product: ProductResolveService,
+    },
+  },
+  {
+    path: 'buy-product',
+    component: BuyProductComponent,
+    canActivate: [authGuard],
+    data: { role: ['USER'] },
+    resolve: {
+      productDetails: BuyProductResolverService,
+    },
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

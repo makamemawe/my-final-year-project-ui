@@ -1,25 +1,24 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Product } from '../models/product.model';
 
 const BASIC_URL = environment["BASIC_URL"]
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+ private payload: any;
 
-private payload: any;
 
   constructor(
     private http: HttpClient
   ) {
     this.payload = this.decodeToken();
-   }
-
+  }
   register(request: any): Observable<any>{
     return this.http.post(BASIC_URL + "register", request);
   }
@@ -27,36 +26,48 @@ private payload: any;
   login(request: any): Observable<any>{
     return this.http.post(BASIC_URL + "authenticate", request);
   }
-  postCategory(categoryDto: any): Observable<any>{
-    return this.http.post<[]>(BASIC_URL + "api/admin/category", categoryDto, {
-      headers: this.createAuthorizationHeader()})
+
+  addNewProduct(product: FormData){
+    return this.http.post<Product>(BASIC_URL + "addNewProduct", product);
   }
 
-  getAllCategory(): Observable<any>{
-    return this.http.get<[]>(BASIC_URL + "api/admin/categories", {
-      headers: this.createAuthorizationHeader()})
+  getAllProducts(){
+    return this.http.get<Product[]>(BASIC_URL + `getAllProducts`);
   }
 
-  postProduct(categoryId: number, productDto: any): Observable<any>{
-    const url = `${BASIC_URL}api/admin/product/${categoryId}`;
-    return this.http.post<any>(url, productDto, {
-      headers: this.createAuthorizationHeader()})
-    }
-
-     getAllProduct(): Observable<any>{
-    return this.http.get<[]>(BASIC_URL + "api/admin/products", {
-      headers: this.createAuthorizationHeader()})
+  getProductById(id: any){
+    return this.http.get<Product>(BASIC_URL + `getProductById/${id}`);
   }
 
-  getAllProductByName(name: any): Observable<any>{
-    return this.http.get<[]>(BASIC_URL + `api/admin/search/${name}`, {
-      headers: this.createAuthorizationHeader()})
+  deleteProduct(id: number){
+    return this.http.delete(BASIC_URL + "deleteProduct/" + id);
   }
 
-  deleteProduct(productId: any): Observable<any>{
-    return this.http.delete(BASIC_URL + `api/admin/product/${productId}`, {
-      headers: this.createAuthorizationHeader()})
+  getProductDetails(isSingleProductCheckout: any, id: any): Observable<Product[]> {
+    const params = new HttpParams()
+      .set('isSingleProductCheckout', isSingleProductCheckout.toString())
+      .set('productId', id);
+
+    return this.http.get<Product[]>(`${BASIC_URL}getProductDetails/${isSingleProductCheckout}/${id}`, { params });
   }
+
+  placeOrder(isSingleProductCheckout: boolean, orderInput: any): Observable<any> {
+    const body = {
+      isSingleProductCheckout,
+      ...orderInput
+    };
+    return this.http.post(`${BASIC_URL}placeOrders`, body, { headers: this.createAuthorizationHeader() });
+  }
+
+  // placeOrder(isSingleProductCheckout: any, orderInput: any){
+  //   const body = isSingleProductCheckout + orderInput;
+  //   return this.http.post(`${BASIC_URL}placeOrders`, body, {headers: this.createAuthorizationHeader()});
+  // }
+  // placeOrder(orderDetails: OrderDetails): Observable<any> {
+  //   const token = localStorage.getItem('jwtToken');
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   return this.http.post(`${BASIC_URL}placeOrders`, orderDetails, { headers });
+  // }
 
 
   createAuthorizationHeader(): HttpHeaders{
@@ -91,11 +102,21 @@ decodeToken(){
   return jwtHelper.decodeToken(token);
 }
 
+getUserId(){
+  if(this.payload)
+    return this.payload.id;
+}
+
 getRoleFromToken(){
 if(this.payload)
   return this.payload.role;
 }
 
+clear(){
+localStorage.clear();
+}
 
-
+isLoggedIn(){
+  return this.getRoleFromToken() && this.getToken();
+}
 }
