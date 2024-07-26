@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Product } from '../../models/product.model';
-import { AuthService } from '../../services/auth.service';
 import { ImageProcessingService } from '../../services/image-processing.service';
+import { ProductService } from '../../services/product.service';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
 
@@ -19,9 +19,14 @@ export class ProductDetailsComponent {
   displayedColumns: string[] = ['ProductId', 'Product Name', 'description', 'Product Actual Price', 'Product Discounted Price', 'Actions'];
   productDetails: any[] = [];
   product: any[] = [];
+  pageNumber: number = 0;
+  showTable = false;
+  loadMoreProductButton = false;
+
+
 
   constructor(
-    private authService: AuthService,
+    private productService: ProductService,
     private snackBar: MatSnackBar,
     private router: Router,
     public dialog: MatDialog,
@@ -32,22 +37,43 @@ export class ProductDetailsComponent {
     this.getAllProducts();
   }
 
-  getAllProducts(){
-    this.authService.getAllProducts()
+  searchByKeyword(searchkeyword: any){
+    console.log(searchkeyword);
+    this.pageNumber = 0;
+    this.productDetails = [];
+    this.getAllProducts(searchkeyword);
+
+  }
+
+  getAllProducts(searchKey: string = ""){
+    this.showTable = false;
+    this.productService.getAllProducts(this.pageNumber, searchKey)
     .pipe(
       map((x: any, i) => x.map((product: any) => this.imageProcessing.createImages(product)))
     )
     .subscribe((res: Product[])=>{
-    console.log(res);
-    this.productDetails = res;
+    res.forEach(p => this.productDetails.push(p));
+    console.log('product details => ', this.productDetails);
+
+    this.showTable = true;
+      if(res.length == 8){
+        this.loadMoreProductButton = true;
+      }else{
+        this.loadMoreProductButton = false;
+      }
     }, (err: HttpErrorResponse)=>{
       console.log(err);
 
     })
   }
 
-  deleteProduct(id: any){
-    this.authService.deleteProduct(id).subscribe((res: any)=>{
+  loadMoreProduct(){
+    this.pageNumber = this.pageNumber + 1;
+    this.getAllProducts();
+  }
+
+  deleteProduct(productId: any){
+    this.productService.deleteProduct(productId).subscribe((res: any)=>{
       this.getAllProducts();
       this.snackBar.open("product successfully deleted", "close", {duration: 5000});
 
@@ -68,10 +94,8 @@ export class ProductDetailsComponent {
     });
   }
 
-  editProductDetails(id: any) {
-    console.log(id);
-
-   this.router.navigate(['/product', {id: id}]);
+  editProductDetails(productId: any) {
+  this.router.navigate(['/product', {productId: productId}]);
    }
 
 }

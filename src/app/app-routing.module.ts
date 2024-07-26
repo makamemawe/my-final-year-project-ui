@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { authGuard } from './auth.guard';
 import { BuyProductComponent } from './components/buy-product/buy-product.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ConfirmMessageComponent } from './components/confirm-message/confirm-message.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { OrdersComponent } from './components/orders/orders.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { ProductComponent } from './components/product/product.component';
@@ -18,8 +21,8 @@ const routes: Routes = [
   {
     path: 'product',
     component: ProductComponent,
-    canActivate: [authGuard],
-    data: { role: ['ADMIN'] },
+    // canActivate: [AuthGuard],
+    // data: { role: ['Admin'] },
     resolve: {
       product: ProductResolveService,
     },
@@ -27,8 +30,8 @@ const routes: Routes = [
   {
     path: 'product-details',
     component: ProductDetailsComponent,
-    canActivate: [authGuard],
-    data: { role: ['ADMIN'] },
+    // canActivate: [AuthGuard],
+    // data: { role: ['Admin'] },
   },
   {
     path: 'product-view',
@@ -40,11 +43,36 @@ const routes: Routes = [
   {
     path: 'buy-product',
     component: BuyProductComponent,
-    canActivate: [authGuard],
-    data: { role: ['USER'] },
+    // canActivate: [AuthGuard],
+    // data: { role: ['User'] },
     resolve: {
       productDetails: BuyProductResolverService,
     },
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+    // canActivate: [AuthGuard],
+    // data: { role: ['User'] },
+  },
+{
+    path: 'orders',
+    component: OrdersComponent,
+    // canActivate: [AuthGuard],
+    // data: { role: ['User'] },
+  },
+{
+    path: 'order-details',
+    component: OrderDetailsComponent,
+    // canActivate: [AuthGuard],
+    // data: { role: ['User'] },
+  },
+
+  {
+    path: 'confirm-message',
+    component: ConfirmMessageComponent,
+    // canActivate: [AuthGuard],
+    // data: { role: ['User'] },
   },
 ];
 

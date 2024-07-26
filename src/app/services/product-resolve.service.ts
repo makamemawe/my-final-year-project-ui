@@ -3,8 +3,9 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable, map, of } from 'rxjs';
 import { FileHandle } from '../models/file-handle.model';
 import { Product } from '../models/product.model';
-import { AuthService } from './auth.service';
 import { ImageProcessingService } from './image-processing.service';
+import { ProductService } from './product.service';
+
 
 
 
@@ -16,18 +17,18 @@ export class ProductResolveService implements Resolve<Product>{
   product: { productImages: FileHandle[] } = { productImages: [] };
 
   constructor(
-    private authService: AuthService,
+    private productService: ProductService,
     private imageProcessing: ImageProcessingService
   ) { }
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<Product> {
 
-      const productId = route.paramMap.get("id");
+      const id = route.paramMap.get("productId");
 
-      if(productId){
+      if(id){
         //then we have to fetch details from backend
-          return this.authService.getProductById(productId)
+          return this.productService.getProductById(id)
          .pipe(
           map(p => this.imageProcessing.createImages(p))
          );
@@ -40,11 +41,11 @@ export class ProductResolveService implements Resolve<Product>{
   getAllProducts(){
 
     return {
-      id:null,
-      name: "",
-      description: "",
-      actualPrice: 0,
-      discountedPrice: 0,
+      productId:null,
+      productName: "",
+      productDescription: "",
+      productActualPrice: 0,
+      productDiscountedPrice: 0,
       productImages: []
     };
 

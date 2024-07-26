@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product.model';
-import { AuthService } from '../../services/auth.service';
+import { ProductService } from '../../services/product.service';
+
 
 @Component({
   selector: 'app-product-view',
@@ -14,7 +15,7 @@ export class ProductViewComponent implements OnInit{
   selectedProductIndex = 0;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService,
+    private productService: ProductService,
     private router: Router
   ){}
   ngOnInit(): void {
@@ -23,21 +24,25 @@ export class ProductViewComponent implements OnInit{
 
   }
 
-  changIndex(index: any){
+  changeIndex(index: any){
     this.selectedProductIndex = index;
   }
-  // buyProduct(id: any) {
-  //   this.router.navigate(['/buy-product'], {
-  //     queryParams: {
-  //       isSingleProductCheckout: true,
-  //       productId: id
-  //     }
-  //   });
-  // }
 
-  buyProduct(id: any){
+  addToCart(productId: any) {
+    console.log(productId);
+
+    this.productService.addToCart(productId).subscribe(
+      (res: any) => {
+        console.log(res);
+      }, (error: any)=> {
+        console.log(error);
+      }
+    );
+  }
+
+  buyProduct(productId: any){
     this.router.navigate(['/buy-product',
-      {isSingleProductCheckout: true, productId: id}
+      {isSingleProductCheckout: true, id: productId}
     ])
   }
 

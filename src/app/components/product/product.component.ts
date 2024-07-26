@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileHandle } from '../../models/file-handle.model';
 import { Product } from '../../models/product.model';
-import { AuthService } from '../../services/auth.service';
+import { ProductService } from '../../services/product.service';
 
 
 
@@ -18,19 +18,18 @@ export class ProductComponent {
 
   isNewProduct = true;
   product: Product = {
-     id:null,
-    name: "",
-    description: "",
-    discountedPrice: 0,
-    actualPrice: 0,
+    productId:null,
+    productName: "",
+    productDescription: "",
+    productActualPrice: 0,
+    productDiscountedPrice: 0,
     productImages: [],
 
 
   }
-  productForm!: FormGroup
 
   constructor(
-    private authService: AuthService,
+    private productService: ProductService,
     private sanitizer: DomSanitizer,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -42,7 +41,7 @@ export class ProductComponent {
 
   this.product = this.activatedRoute.snapshot.data['product'];
 
-  if(this.product && this.product.id) {
+  if(this.product && this.product.productId) {
     this.isNewProduct = false;
   }
 
@@ -50,15 +49,17 @@ export class ProductComponent {
 
   addNewProduct(productForm: NgForm){
     const formatDataProduct = this.prepareFormData(this.product);
-    this.authService.addNewProduct(formatDataProduct).subscribe((res: Product)=>{
+    this.productService.addNewProduct(formatDataProduct).subscribe(
+      (res: Product)=>{
       console.log(res);
+      productForm.reset();
 
-      if (res.id != null && this.isNewProduct != false) {
+      if (res.productId != null && this.isNewProduct != false) {
         this.snackBar.open('product posted succefully', 'clese', {
           duration: 5000,
         });
         this.router.navigate(['/product-details']);
-      } else if(res.id != null && this.isNewProduct != true){
+      } else if(res.productId != null && this.isNewProduct != true){
         this.snackBar.open('product updated succefully', 'clese', {
           duration: 5000,
         });

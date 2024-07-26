@@ -1,12 +1,35 @@
 <mat-toolbar color="primary">
   <span>
+    KIZIMBANI WEBAPP SYSTEM
+  </span>
+
+  <span class="space-button"></span>
+  <button align="end" *ngIf="! isLoggedIn()" routerLink="/login" mat-raised-button color="primary">
+    Login
+  </button>
+  <button align="end" *ngIf="isLoggedIn()" (click)="logout()" mat-raised-button color="warn">
+    Logout
+  </button>
+</mat-toolbar>
+
+<mat-toolbar color="primary" *ngIf="isLoggedIn()">
+  <button mat-raised-button color="primary" routerLink="/">Home</button>
+  <button *ngIf="!isAdmin()" mat-raised-button color="primary" routerLink="/cart">Cart</button>
+  <button *ngIf="!isAdmin()" mat-raised-button color="primary" routerLink="/orders">My Orders</button>
+  <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/product">Add New Product</button>
+  <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/product-details">Show Product Details</button>
+  <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/order-details">Order Information</button>
+</mat-toolbar>
+
+<!-- <mat-toolbar color="primary">
+  <span>
     Kizimbani WebApp
   </span>
 
   <span class="space-button"></span>
-  <!-- <button mat-raised-button routerLink="/register" routerLinkActive="active" color="primary">
+   <button mat-raised-button routerLink="/register" routerLinkActive="active" color="primary">
     register
-  </button> -->
+  </button>
   <button  mat-raised-button *ngIf="! isLoggedIn()" routerLink="/login" routerLinkActive="active" color="primary">login</button>
 
    <button mat-raised-button *ngIf="isLoggedIn()" (click)="clearToken()" color="warn">
@@ -17,10 +40,10 @@
 <mat-toolbar color="primary" *ngIf="isLoggedIn()">
 
     <button mat-flat-button routerLink="/" color="primary">Home</button>
-    <button *ngIf=" role === 'ADMIN'" mat-flat-button routerLink="/product" color="primary">Add New Product</button>
-    <button *ngIf=" role === 'ADMIN'" mat-flat-button routerLink="/product-details" color="primary">Product Details</button>
-    <!-- <button *ngIf=" role === 'USER'" mat-flat-button routerLink="/" color="primary">Home</button> -->
+    <button *ngIf=" role === 'Admin'" mat-flat-button routerLink="/product" color="primary">Add New Product</button>
+    <button *ngIf=" role === 'Admin'" mat-flat-button routerLink="/product-details" color="primary">Product Details</button>
+     <button *ngIf=" role === 'USER'" mat-flat-button routerLink="/" color="primary">Home</button>
 <ng-container>
 
 </ng-container>
-</mat-toolbar>
+</mat-toolbar> -->

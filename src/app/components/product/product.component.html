@@ -5,22 +5,22 @@
         <form #productForm="ngForm" (ngSubmit)="addNewProduct(productForm)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Name</mat-label>
-            <input matInput placeholder="Product Name" [(ngModel)]="product.name" name="name">
+            <input matInput placeholder="Product Name" [(ngModel)]="product.productName" name="name">
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Description</mat-label>
-            <input matInput placeholder="Product description" [(ngModel)]="product.description" name="description">
+            <input matInput placeholder="Product description" [(ngModel)]="product.productDescription" name="description">
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>ActualPrice</mat-label>
-            <input matInput placeholder="Product actualPrice" [(ngModel)]="product.actualPrice" name="actualPrice">
+            <input matInput placeholder="Product actualPrice" [(ngModel)]="product.productActualPrice" name="actualPrice">
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>DiscountPrice</mat-label>
-            <input matInput placeholder="Product discountPrice" [(ngModel)]="product.discountedPrice"
+            <input matInput placeholder="Product discountPrice" [(ngModel)]="product.productDiscountedPrice"
               name="discountedPrice">
           </mat-form-field>
 

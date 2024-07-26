@@ -12,8 +12,8 @@
 }
 
 .card{
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 40px;
+  margin-left: 40px;
 }
 
 .home-page-image img {
@@ -70,7 +70,7 @@
 
 /* Button styling */
 button[mat-raised-button] {
-  background-color: #d9534f;
+  /* background-color: #d9534f; */
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -81,6 +81,6 @@ button[mat-raised-button] {
 }
 
 button[mat-raised-button]:hover {
-  background-color: #c9302c;
+  /* background-color: #c9302c; */
   transform: scale(1.05);
 }

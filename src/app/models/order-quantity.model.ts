@@ -1,5 +1,5 @@
 export interface OrderQuantity{
 
-   id: number;
+   productId: number;
    quantity: number;
 }
