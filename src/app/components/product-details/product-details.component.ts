@@ -56,7 +56,7 @@ export class ProductDetailsComponent {
     console.log('product details => ', this.productDetails);
 
     this.showTable = true;
-      if(res.length == 8){
+      if(res.length == 12){
         this.loadMoreProductButton = true;
       }else{
         this.loadMoreProductButton = false;

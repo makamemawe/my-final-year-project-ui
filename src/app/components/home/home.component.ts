@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit{
     )
     .subscribe((res: Product[])=>{
     console.log(res);
-    if(res.length == 8){
+    if(res.length == 12){
       this.showLoadButton = true;
     } else{
       this.showLoadButton = false;

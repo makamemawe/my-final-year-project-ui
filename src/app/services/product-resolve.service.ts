@@ -42,6 +42,7 @@ export class ProductResolveService implements Resolve<Product>{
 
     return {
       productId:null,
+      categoryId:null,
       productName: "",
       productDescription: "",
       productActualPrice: 0,

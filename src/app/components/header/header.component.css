@@ -1,4 +1,4 @@
-.space-button{
+.spacer{
   flex: 1 1 auto;
 }
 table {
@@ -12,3 +12,61 @@ table td {
 .mat-column-Description {
   width: 35% !important;
 }
+
+.toolbar mat-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 16px;
+  background-color: #003974;
+  color: #d3cfcf;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+button[mat-raised-button] {
+  margin-left: 8px;
+  font-size: large;
+  font-weight: normal;
+  font: 1em sans-serif;
+}
+
+mat-toolbar {
+  padding: 0 16px;
+}
+
+.mat-toolbar span {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.firstinfo {
+  display: flex;
+  align-items: center;
+}
+
+.image{
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.profileinfo {
+  margin-left: 15px;
+}
+
+.badgescard span {
+  margin-right: 10px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+

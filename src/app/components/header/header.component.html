@@ -1,49 +1,43 @@
 <mat-toolbar color="primary">
-  <span>
-    KIZIMBANI WEBAPP SYSTEM
-  </span>
+  <div class="content mt-5">
+    <div class="firstinfo">
+      <img class="image" src = "assets/images/logo.png" alt="Profile Image" />
+      <div class="profileinfo">
+        <span>E-CASHEW NUT SYSTEM</span>
+        <p class="bio">MaweProduct</p>
+      </div>
+    </div>
+    <div class="badgescard">
+      <span class="fa fa-facebook"></span>
+      <span class="fa fa-twitter"></span>
+      <span class="fa fa-google-plus"></span>
+      <span class="fa fa-youtube"></span>
+      <span class="fa fa-dribble"></span>
+      <span class="fa fa-google"></span>
+      <span class="fa fa-android"></span>
+    </div>
+  </div>
+  <span class="spacer"></span> <!-- Spacer to push the buttons to the right -->
 
-  <span class="space-button"></span>
-  <button align="end" *ngIf="! isLoggedIn()" routerLink="/login" mat-raised-button color="primary">
+  <button *ngIf="!isLoggedIn()" routerLink="/login" mat-raised-button color="primary">
     Login
   </button>
-  <button align="end" *ngIf="isLoggedIn()" (click)="logout()" mat-raised-button color="warn">
+  <button *ngIf="isLoggedIn()" (click)="logout()" mat-raised-button color="warn">
     Logout
   </button>
 </mat-toolbar>
 
+<div class="toolbar">
 <mat-toolbar color="primary" *ngIf="isLoggedIn()">
   <button mat-raised-button color="primary" routerLink="/">Home</button>
-  <button *ngIf="!isAdmin()" mat-raised-button color="primary" routerLink="/cart">Cart</button>
-  <button *ngIf="!isAdmin()" mat-raised-button color="primary" routerLink="/orders">My Orders</button>
+  <button *ngIf="isUser()" mat-raised-button color="primary" routerLink="/cart">Cart</button>
+  <button *ngIf="isUser()" mat-raised-button color="primary" routerLink="/orders">My Orders</button>
+  <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/category">Add New Category</button>
   <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/product">Add New Product</button>
+  <button *ngIf="isSubAdmin()" mat-raised-button color="primary" routerLink="/member">Add New Member</button>
   <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/product-details">Show Product Details</button>
   <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/order-details">Order Information</button>
+  <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/report">Sales Report</button>
+  <button *ngIf="isSubAdmin()" mat-raised-button color="primary" routerLink="/delivery">Delivery</button>
 </mat-toolbar>
-
-<!-- <mat-toolbar color="primary">
-  <span>
-    Kizimbani WebApp
-  </span>
-
-  <span class="space-button"></span>
-   <button mat-raised-button routerLink="/register" routerLinkActive="active" color="primary">
-    register
-  </button>
-  <button  mat-raised-button *ngIf="! isLoggedIn()" routerLink="/login" routerLinkActive="active" color="primary">login</button>
-
-   <button mat-raised-button *ngIf="isLoggedIn()" (click)="clearToken()" color="warn">
-    Logout
-  </button>
-</mat-toolbar>
-
-<mat-toolbar color="primary" *ngIf="isLoggedIn()">
-
-    <button mat-flat-button routerLink="/" color="primary">Home</button>
-    <button *ngIf=" role === 'Admin'" mat-flat-button routerLink="/product" color="primary">Add New Product</button>
-    <button *ngIf=" role === 'Admin'" mat-flat-button routerLink="/product-details" color="primary">Product Details</button>
-     <button *ngIf=" role === 'USER'" mat-flat-button routerLink="/" color="primary">Home</button>
-<ng-container>
-
-</ng-container>
-</mat-toolbar> -->
+</div>

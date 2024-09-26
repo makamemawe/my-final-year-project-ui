@@ -16,16 +16,17 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductComponent {
 
+  listOfCategory: any = [];
+  category: any = {};
   isNewProduct = true;
   product: Product = {
-    productId:null,
+    productId: null,
+    categoryId: null,
     productName: "",
     productDescription: "",
     productActualPrice: 0,
     productDiscountedPrice: 0,
     productImages: [],
-
-
   }
 
   constructor(
@@ -45,11 +46,14 @@ export class ProductComponent {
     this.isNewProduct = false;
   }
 
+  this.getAllCategories();
+
   }
 
   addNewProduct(productForm: NgForm){
     const formatDataProduct = this.prepareFormData(this.product);
-    this.productService.addNewProduct(formatDataProduct).subscribe(
+    const categoryId = this.product.categoryId;
+    this.productService.addNewProduct(formatDataProduct, categoryId).subscribe(
       (res: Product)=>{
       console.log(res);
       productForm.reset();
@@ -89,6 +93,12 @@ export class ProductComponent {
           }
 
       return formatData;
+  }
+
+  getAllCategories() {
+    this.productService.getAllCategory().subscribe((res) => {
+      this.listOfCategory = res;
+    });
   }
 
   onFileSelected(event: any){

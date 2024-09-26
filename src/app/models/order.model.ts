@@ -1,13 +1,26 @@
-import { Product } from "./product.model";
 
 export interface MyOrderDetails {
+  id: string;
+  // orderId: number;
+  // orderFullName: string;
+  // orderFullOrder: string;
+  // orderContactNumber: string;
+  // orderAlternateContactNumber: string;
+  // orderStatus: string;
+  // orderAmount: number;
+  // product: Product;
+  // user: any;
   orderId: number;
-  orderFullName: string;
+  product: {
+    productName: string;
+  };
+  user: {
+    userFirstName: string;
+  };
   orderFullOrder: string;
   orderContactNumber: string;
-  orderAlternateContactNumber: string;
+  totalAmount: number;
+  orderDate: Date;
   orderStatus: string;
-  orderAmount: number;
-  product: Product;
-  user: any;
+
 }

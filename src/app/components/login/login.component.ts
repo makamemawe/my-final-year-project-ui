@@ -35,16 +35,20 @@ export class LoginComponent {
 
         const role = res.user.role[0].roleName;
         if (role === 'Admin') {
+          this.snackBar.open('Login successful', 'ok', {duration: 5000});
           this.router.navigate(['/product-details']);
+        } else if(role === 'SubAdmin'){
+          this.snackBar.open('Login successful', 'ok', {duration: 5000});
+          this.router.navigate(['/delivery']);
         } else {
+          this.snackBar.open('Login successful', 'ok', {duration: 5000});
           this.router.navigate(['/']);
         }
       },
-      (error: any) => {
-        console.error('Login failed', error);
-        // Handle the error here, e.g., display a notification to the user
-       }
-    );
+      (err: any)=>{
+              this.snackBar.open('Wrong password or Email', 'ERROR', {duration: 5000});
+            })
+
   }
 
   togglePasswordVisibility(){
@@ -55,60 +59,5 @@ export class LoginComponent {
   registerUser() {
     this.router.navigate(['/register']);
   }
-
-
-  // loginForm!: FormGroup;
-  //  hidePassword: Boolean = true;
-  // token: any;
-  // user: any;
-  // constructor(
-  //   private fb: FormBuilder,
-  //   private authService: AuthService,
-  //   private snackBar: MatSnackBar,
-  //   private router: Router,
-  //   private store: StoreService
-  // ){}
-
-  // ngOnInit(): void {
-  //   this.loginForm = this.fb.group({
-
-  //   email: [null, [Validators.required, Validators.email]],
-  //   password: [null, [Validators.required]]
-
-  //   })
-
-  // }
-
-  // login(loginForm: NgForm){
-
-  //   this.authService.login(loginForm.value).subscribe(
-  //     (res: any)=> {
-  //       console.log(res);
-  //       if(res.token != null){
-  //         console.log("token is " + res.token)
-  //         const tokenSaved = res.token;
-  //         this.authService.storeToken(tokenSaved);
-  //         const tokenPayload = this.authService.decodeToken();
-  //         this.store.setRoles(tokenPayload.role);
-  //         if(tokenPayload.role=="Admin"){
-  //           this.snackBar.open('Login successful', 'ok', {duration: 5000});
-  //           this.router.navigate(['product-details'])
-  //         }
-  //         else{ (tokenPayload.role=="Admin")
-  //           this.router.navigate(['/'])
-  //       }
-
-  //      }
-
-  //   },
-  //     (err: any)=>{
-  //       this.snackBar.open('Wrong password or Email', 'ERROR', {duration: 5000});
-  //     })
-  // }
-
-  // togglePasswordVisibility(){
-  //   this.hidePassword = !this.hidePassword;
-
-  // }
 
 }

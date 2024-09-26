@@ -16,6 +16,11 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Order Date</mat-label>
+          <input matInput placeholder="Order Date" [(ngModel)]="orderDetails.orderDate" name="orderDate" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>Contact Number</mat-label>
           <input matInput placeholder="Contact Number" [(ngModel)]="orderDetails.contactNumber" name="contactNumber" required>
         </mat-form-field>
@@ -34,7 +39,7 @@
 
     <div class="col-6">
       <table class="table">
-        <thead class="thead">
+        <thead class="thead thead-primary">
           <tr>
             <th>Name</th>
             <th>Amount</th>
@@ -44,8 +49,8 @@
         </thead>
         <tbody class="tbody">
           <tr *ngFor="let product of productDetails">
-            <td>{{product.productName}}</td>
-            <td>{{product.productDiscountedPrice}}</td>
+            <td><h1>{{product.productName}}</h1></td>
+            <td><h1>{{product.productDiscountedPrice}}</h1></td>
             <td>
               <select #quantity class="form-select p-2" [ngModel]="getQuantityForProduct(product.productId)"
               (change)="onQuantityChange(quantity.value, product.productId)">
@@ -55,13 +60,13 @@
                 <option value="4">4</option>
               </select>
             </td>
-            <td>{{getCalculatedTotal(product.productId, product.productDiscountedPrice)}} </td>
+            <td><h1>{{getCalculatedTotal(product.productId, product.productDiscountedPrice)}}</h1> </td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td><b>GrandTotal</b></td>
-            <td><b>{{getCalculatedGrandTotal()}}</b></td>
+            <td><b><h1>{{getCalculatedGrandTotal()}}</h1></b></td>
           </tr>
         </tbody>
       </table>

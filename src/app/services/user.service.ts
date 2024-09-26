@@ -40,6 +40,12 @@ export class UserService {
     });
   }
 
+  forSubAdmin() {
+    return this.http.get(BASIC_URL + '/forSubAdmin', {
+      responseType: 'text',
+    });
+  }
+
   public roleMatch(allowedRoles: string | any[]): boolean {
     let isMatch = false;
     const userRoles: any = this.userAuthService.getRoles();

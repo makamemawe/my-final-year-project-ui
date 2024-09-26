@@ -1,0 +1,32 @@
+<div class="container mt-5">
+
+  <div class="download">
+    <button (click)="generatePDF()">Download Sales Report</button>
+  </div>
+
+  <table #reportTable>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>Order Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of salesReports">
+        <td data-label="User ID">{{ report.orderId }}</td>
+        <td data-label="User Name">{{ report.orderFullName }}</td>
+        <td data-label="Amount">{{ report.orderAmount }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="canvas mb-3 mt-5">
+    <canvas #salesChart></canvas>
+  </div>
+
+</div>
+
+<div class="order p-5">
+
+</div>

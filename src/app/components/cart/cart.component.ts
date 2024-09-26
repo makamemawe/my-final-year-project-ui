@@ -12,6 +12,7 @@ export class CartComponent {
   displayedColumns: string[] = ['Name', 'Description', 'Price', 'Discounted Price', 'Action'];
 
   cartDetails: any[] = [];
+  date = new Date().getFullYear();
 
   constructor(
     private productService: ProductService,

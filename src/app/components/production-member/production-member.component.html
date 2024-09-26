@@ -1,0 +1,61 @@
+<div class="container">
+  <h2>Production Members</h2>
+
+  <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input id="fullName" type="text" formControlName="fullName" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input id="phone" type="text" formControlName="phone" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="fieldLevel">Field Level</label>
+      <input id="fieldLevel" type="text" formControlName="fieldLevel" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="registrationNumber">Registration Number</label>
+      <input id="registrationNumber" type="text" formControlName="registrationNumber" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="productionSiteId">Production Site ID</label>
+      <input id="productionSiteId" type="number" formControlName="productionSiteId" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="profileImage">Profile Image</label>
+      <input id="profileImage" type="file" (change)="onFileChange($event)" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of productionMembers">
+        <td>{{ member.fullName }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.phone }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteProductionMember(member)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="order p-5">
+
+</div>

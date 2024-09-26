@@ -29,10 +29,6 @@ export class UserAuthService {
     return localStorage.getItem('jwtToken');
   }
 
-  //  getToken(): any {
-  //   return localStorage.getItem('jwtToken');
-  // }
-
   clear() {
     localStorage.clear();
   }
@@ -44,6 +40,11 @@ export class UserAuthService {
   isAdmin() {
     const roles: any[] = this.getRoles();
     return roles[0].roleName === 'Admin';
+  }
+
+  isSubAdmin() {
+    const roles: any[] = this.getRoles();
+    return roles[0].roleName === 'SubAdmin';
   }
 
    isUser() {

@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BuyProductComponent } from './components/buy-product/buy-product.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CategoryComponent } from './components/category/category.component';
 import { ConfirmMessageComponent } from './components/confirm-message/confirm-message.component';
+import { DeliveryComponent } from './components/delivery/delivery.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
@@ -10,7 +12,9 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { ProductComponent } from './components/product/product.component';
+import { ProductionMemberComponent } from './components/production-member/production-member.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ReportComponent } from './components/report/sales-report.component';
 import { BuyProductResolverService } from './services/buy-product-resolver.service';
 import { ProductResolveService } from './services/product-resolve.service';
 
@@ -39,6 +43,22 @@ const routes: Routes = [
     resolve: {
       product: ProductResolveService,
     },
+  },
+  {
+    path: 'category',
+    component: CategoryComponent,
+  },
+  {
+    path: 'report',
+    component: ReportComponent,
+  },
+  {
+    path: 'member',
+    component: ProductionMemberComponent,
+  },
+  {
+    path: 'delivery',
+    component: DeliveryComponent,
   },
   {
     path: 'buy-product',

@@ -1,0 +1,19 @@
+<div class="container mt-5">
+  <div class="card p-2">
+    <form #categoryForm="ngForm" (ngSubmit)="addNewCategory(categoryForm)" class="category-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Category Name</mat-label>
+        <input matInput placeholder="Category Name" [(ngModel)]="category.categoryName" name="categoryName" required>
+        <mat-error *ngIf="categoryForm.form.controls['categoryName']?.invalid && categoryForm.form.controls['categoryName']?.touched">
+          This input is required
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Add Category</button>
+    </form>
+  </div>
+</div>
+
+<div class="order p-5">
+
+</div>
+

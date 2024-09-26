@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, Renderer2 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderDetails } from '../../models/order-details.model';
@@ -20,8 +20,10 @@ export class BuyProductComponent {
   orderDetails: OrderDetails = {
     fullName: '',
     fullAddress: '',
+    orderDate: new Date(),
     contactNumber: '',
     alternateContactNumber: '',
+    transactionId: '',
     orderProductQuantityList: []
   }
 
@@ -29,7 +31,8 @@ export class BuyProductComponent {
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private injector: Injector
+    private injector: Injector,
+    private renderer: Renderer2
   ){}
 
   ngOnInit(): void {
@@ -46,26 +49,21 @@ this.productDetails.forEach(
   console.log(this.orderDetails);
 
 
+this.loadRazorpayScript();
+
   }
 
-  // public placeOrder(orderForm: NgForm) {
-  //   this.productService.placeOrder(this.orderDetails, this.isSingleProductCheckout).subscribe(
-  //     (resp) => {
-  //       console.log(resp);
-  //       orderForm.reset();
-
-  //       const ngZone = this.injector.get(NgZone);
-  //       ngZone.run(
-  //         () => {
-  //           this.router.navigate(["/confirm-message"]);
-  //         }
-  //       );
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
+  loadRazorpayScript() {
+    const script = this.renderer.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => {
+      console.log('Razorpay script loaded successfully.');
+    };
+    script.onerror = () => {
+      console.error('Failed to load the Razorpay script.');
+    };
+    this.renderer.appendChild(document.body, script);
+  }
 
 
   placeOrder(orderForm: NgForm) {
@@ -131,7 +129,7 @@ this.productDetails.forEach(
     this.productService.createTransaction(amount).subscribe(
       (res) => {
         console.log(res);
-        this.openTransactioModal(res, orderForm);
+        this.openTransactionModal(res, orderForm);
       },
       (error) => {
         console.log(error);
@@ -140,27 +138,31 @@ this.productDetails.forEach(
 
   }
 
-  openTransactioModal(response: any, orderForm: NgForm) {
+  openTransactionModal(res: any, orderForm: NgForm) {
+    if (typeof Razorpay === 'undefined') {
+      console.error('Razorpay library is not loaded.');
+      return;
+    }
+
     var options = {
-      order_id: response.orderId,
-      key: response.key,
-      amount: response.amount,
-      currency: response.currency,
-      name: 'Learn programming yourself',
+      order_id: res.orderId,
+      key: res.key,
+      amount: res.amount,
+      currency: res.currency,
+      name: 'Final Year Project',
       description: 'Payment of online shopping',
       image: 'https://cdn.pixabay.com/photo/2023/01/22/13/46/swans-7736415_640.jpg',
       handler: (response: any) => {
-        if(response!= null && response.razorpay_payment_id != null) {
+        if (response != null && response.razorpay_payment_id != null) {
           this.processResponse(response, orderForm);
         } else {
           alert("Payment failed..")
         }
-
       },
-      prefill : {
-        name:'LPY',
-        email: 'LPY@GMAIL.COM',
-        contact: '90909090'
+      prefill: {
+        name: 'Mawe',
+        email: 'mawe@gmail.com',
+        contact: '9000090000'
       },
       notes: {
         address: 'Online Shopping'
@@ -170,12 +172,21 @@ this.productDetails.forEach(
       }
     };
 
-    var razorPayObject = new Razorpay(options);
-    razorPayObject.open();
+    try {
+      var razorPayObject = new Razorpay(options);
+      razorPayObject.open();
+    } catch (error) {
+      console.error('Error initializing Razorpay:', error);
+    }
   }
 
-  processResponse(resp: any, orderForm:NgForm) {
-    // this.orderDetails.transactionId = resp.razorpay_payment_id;
+  processResponse(response: any, orderForm: NgForm) {
+    this.orderDetails.transactionId = response.razorpay_payment_id;
     this.placeOrder(orderForm);
   }
+
+// goBack(productId: any){
+//   this.router.navigate(['/product-view', {productId:productId}])
+// }
+
 }

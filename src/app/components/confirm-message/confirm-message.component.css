@@ -1,0 +1,13 @@
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.card {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+}

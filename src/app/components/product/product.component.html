@@ -1,38 +1,60 @@
 <div class="container mt-5">
-  <div class="card p-2">
+  <div class="card p-4">
     <div class="row">
       <div class="col-6">
         <form #productForm="ngForm" (ngSubmit)="addNewProduct(productForm)">
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Select Category</mat-label>
+            <mat-select [(ngModel)]="product.categoryId" name="categoryId" required>
+              <mat-option *ngFor="let category of listOfCategory" [value]="category.categoryId">
+                {{category.categoryName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="productForm.form.controls['categoryId']?.invalid && productForm.form.controls['categoryId']?.touched">
+              This input is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100 mb-3">
             <mat-label>Name</mat-label>
-            <input matInput placeholder="Product Name" [(ngModel)]="product.productName" name="name">
+            <input matInput placeholder="Product Name" [(ngModel)]="product.productName" name="name" required>
+            <mat-error *ngIf="productForm.form.controls['name']?.invalid && productForm.form.controls['name']?.touched">
+              This input is required
+            </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
             <mat-label>Description</mat-label>
-            <input matInput placeholder="Product description" [(ngModel)]="product.productDescription" name="description">
+            <input matInput placeholder="Product Description" [(ngModel)]="product.productDescription" name="description" required>
+            <mat-error *ngIf="productForm.form.controls['description']?.invalid && productForm.form.controls['description']?.touched">
+              This input is required
+            </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>ActualPrice</mat-label>
-            <input matInput placeholder="Product actualPrice" [(ngModel)]="product.productActualPrice" name="actualPrice">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Actual Price</mat-label>
+            <input matInput placeholder="Product Actual Price" [(ngModel)]="product.productActualPrice" name="actualPrice" required>
+            <mat-error *ngIf="productForm.form.controls['actualPrice']?.invalid && productForm.form.controls['actualPrice']?.touched">
+              This input is required
+            </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>DiscountPrice</mat-label>
-            <input matInput placeholder="Product discountPrice" [(ngModel)]="product.productDiscountedPrice"
-              name="discountedPrice">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Discount Price</mat-label>
+            <input matInput placeholder="Product Discount Price" [(ngModel)]="product.productDiscountedPrice" name="discountedPrice" required>
+            <mat-error *ngIf="productForm.form.controls['discountedPrice']?.invalid && productForm.form.controls['discountedPrice']?.touched">
+              This input is required
+            </mat-error>
           </mat-form-field>
 
-          <div align="end">
-            <button mat-stroked-button color="primary" style="margin-right: 5px;">Clear</button>
+          <div class="text-end">
+            <button mat-stroked-button color="primary" (click)="productForm.resetForm()" style="margin-right: 5px;">Clear</button>
             <button type="submit" mat-stroked-button *ngIf="isNewProduct" color="primary">Add Product</button>
             <button type="submit" mat-stroked-button *ngIf="!isNewProduct" color="primary">Update Product</button>
           </div>
         </form>
       </div>
       <div class="col-6">
-
         <div>
           <div class="dropzone">
             <div class="text-wrapper" appDrag (files)="onFileDropped($event)">
@@ -41,12 +63,10 @@
                 <a (click)="selectFile.click()" class="browse-button">browse</a>
                 a file
               </div>
-
             </div>
           </div>
           <input type="file" #selectFile style="display: none;" multiple (change)="onFileSelected($event)">
         </div>
-
         <div class="mt-5">
           <div class="image-gallery">
             <div class="image-container" *ngFor="let image of product.productImages; let i = index;">
@@ -55,7 +75,10 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
+</div>
+<div class="order p-5">
+
+</div>

@@ -13,6 +13,7 @@ export class ProductViewComponent implements OnInit{
 
   product!: Product;
   selectedProductIndex = 0;
+p: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
@@ -44,6 +45,10 @@ export class ProductViewComponent implements OnInit{
     this.router.navigate(['/buy-product',
       {isSingleProductCheckout: true, id: productId}
     ])
+  }
+
+  goBack(){
+    this.router.navigate(['/']);
   }
 
 }

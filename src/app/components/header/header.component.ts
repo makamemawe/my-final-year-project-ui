@@ -31,44 +31,13 @@ export class HeaderComponent implements OnInit{
   public isAdmin() {
     return this.userAuthService.isAdmin();
   }
+  public isSubAdmin() {
+    return this.userAuthService.isSubAdmin();
+
+  }
 
   public isUser() {
     return this.userAuthService.isUser();
   }
-  // role!:string
-  // constructor(
-  //   private authService: AuthService,
-  //   private router: Router,
-  //   private store:StoreService,
-
-  // ) {
-  //   this.role = 'Admin';
-
-  // }
-
-  // ngOnInit(): void {
-
-  //   this.store.getRoles().subscribe({
-  //     next: ((res:any)=>{
-  //       console.log('my response are',res)
-  //       this.role=res||this.authService.getRoleFromToken()
-  //     })
-  //   })
-  // }
-
-  // clearToken(){
-  //   this.authService.clearToken();
-  //   this.router.navigate(['/']);
-  // }
-
-  // public isLoggedIn() {
-  //   return this.authService.isLoggedIn();
-  // }
-
-  // public logout() {
-  //   this.authService.clear();
-  //   this.router.navigate(['/']);
-  // }
-
 
 }
